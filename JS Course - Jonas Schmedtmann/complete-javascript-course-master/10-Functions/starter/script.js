@@ -188,7 +188,6 @@
 // 5. Bonus: Use the 'displayResults' method to display the 2 arrays in the test
 // data. Use both the 'array' and the 'string' option. Do not put the arrays in the poll
 // object! So what should the this keyword look like in this situation?
-// The Complete JavaScript Course 21
 // Test data for bonus:
 // § Data 1: [5, 2, 3]
 // § Data 2: [1, 5, 3, 9, 6, 1]
@@ -197,38 +196,40 @@
 //Solution
 
 const poll = {
-  answers: [0, 0, 0, 0],
-
+  question: 'What is your favourite programming language?',
+  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+  // This generates [0, 0, 0, 0]. More in the next section!
+  answers: new Array(4).fill(0),
   registerNewAnswer() {
-    let reply = 0;
-    reply = Number(
-      prompt(`What is your favourite programming language?
-0: JavaScript
-1: Python
-2: Rust
-3: C++
-(Write option number)`)
+    //My firstAnswer
+    //     const reply = Number(
+    //       prompt(`${this.question}
+    // ${this.options[0]}
+    // ${this.options[1]}
+    // ${this.options[2]}
+    // ${this.options[3]}
+    // (Write option number)`)
+    //     );
+    //Cool way
+    const reply = Number(
+      prompt(
+        `${this.question}\n${this.options.join('\n')}\n(Write option number`
+      )
     );
-
-    reply >= 0 && reply < 4
-      ? (this.answers[reply] += 1)
-      : alert('Invalid Entry');
+    typeof reply === 'number' &&
+      reply < this.options.length &&
+      this.answers[reply]++; //Short-Circuting
+    this.displayResults();
+    this.displayResults('string');
   },
-
-  displayResults(type) {
-    if (typeof type === 'string') {
-      console.log(`String ${type}`);
-    } else {
-      console.log(type);
+  displayResults(type = 'array') {
+    if (type === 'array') {
+      console.log(this.answers);
+    } else if (typeof type === 'string') {
+      console.log(`Poll results are ${this.answers.join(', ')}`);
     }
   },
 };
-
-// 3. Create a method 'displayResults' which displays the poll results. The
-// method takes a string as an input (called 'type'), which can be either 'string'
-// or 'array'. If type is 'array', simply display the results array as it is, using
-// console.log(). This should be the default option. If type is 'string', display a
-// string like "Poll results are 13, 2, 4, 1".
 
 //Creating Button Object variable
 const pollBtn = document.querySelector('.poll');
@@ -240,8 +241,15 @@ const pollBtn = document.querySelector('.poll');
 // const pollAnswers = pollAnswersCopy.bind(poll);
 
 //Binding pollAnswers with poll object to use "this" keyword of poll object (Alternate to Above Two steps)
-const pollAnswers = poll.registerNewAnswer.bind(poll);
+// const pollAnswers = poll.registerNewAnswer.bind(poll);
 
-pollBtn.addEventListener('click', pollAnswers);
+pollBtn.addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-poll.displayResults('Its a String');
+poll.displayResults.call({ answers: [5, 2, 3] });
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
+
+// [5, 2, 3]
+// § Data 2: [1, 5, 3, 9, 6, 1]
+
+// poll.displayResults('is Immutable');
+// poll.displayResults(['Array', '1', 2]);
