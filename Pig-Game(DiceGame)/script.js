@@ -130,5 +130,3 @@ btnHold.addEventListener('click', function () {
 
 //Click on the NewGame Reset all values to Zero '0'
 btnNew.addEventListener('click', resetGame);
-
-//Test
