@@ -195,44 +195,44 @@
 
 //Solution
 
-const poll = {
-  question: 'What is your favourite programming language?',
-  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
-  // This generates [0, 0, 0, 0]. More in the next section!
-  answers: new Array(4).fill(0),
-  registerNewAnswer() {
-    //My firstAnswer
-    //     const reply = Number(
-    //       prompt(`${this.question}
-    // ${this.options[0]}
-    // ${this.options[1]}
-    // ${this.options[2]}
-    // ${this.options[3]}
-    // (Write option number)`)
-    //     );
-    //Cool way
-    const reply = Number(
-      prompt(
-        `${this.question}\n${this.options.join('\n')}\n(Write option number`
-      )
-    );
-    typeof reply === 'number' &&
-      reply < this.options.length &&
-      this.answers[reply]++; //Short-Circuting
-    this.displayResults();
-    this.displayResults('string');
-  },
-  displayResults(type = 'array') {
-    if (type === 'array') {
-      console.log(this.answers);
-    } else if (typeof type === 'string') {
-      console.log(`Poll results are ${this.answers.join(', ')}`);
-    }
-  },
-};
+// const poll = {
+//   question: 'What is your favourite programming language?',
+//   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+//   // This generates [0, 0, 0, 0]. More in the next section!
+//   answers: new Array(4).fill(0),
+//   registerNewAnswer() {
+//My firstAnswer
+//     const reply = Number(
+//       prompt(`${this.question}
+// ${this.options[0]}
+// ${this.options[1]}
+// ${this.options[2]}
+// ${this.options[3]}
+// (Write option number)`)
+//     );
+//Cool way
+//     const reply = Number(
+//       prompt(
+//         `${this.question}\n${this.options.join('\n')}\n(Write option number`
+//       )
+//     );
+//     typeof reply === 'number' &&
+//       reply < this.options.length &&
+//       this.answers[reply]++; //Short-Circuting
+//     this.displayResults();
+//     this.displayResults('string');
+//   },
+//   displayResults(type = 'array') {
+//     if (type === 'array') {
+//       console.log(this.answers);
+//     } else if (typeof type === 'string') {
+//       console.log(`Poll results are ${this.answers.join(', ')}`);
+//     }
+//   },
+// };
 
 //Creating Button Object variable
-const pollBtn = document.querySelector('.poll');
+// const pollBtn = document.querySelector('.poll');
 
 //copying the poll.registerNewAnswer function to a variable
 // const pollAnswersCopy = poll.registerNewAnswer;
@@ -243,13 +243,81 @@ const pollBtn = document.querySelector('.poll');
 //Binding pollAnswers with poll object to use "this" keyword of poll object (Alternate to Above Two steps)
 // const pollAnswers = poll.registerNewAnswer.bind(poll);
 
-pollBtn.addEventListener('click', poll.registerNewAnswer.bind(poll));
+// pollBtn.addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-poll.displayResults.call({ answers: [5, 2, 3] });
-poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
+// poll.displayResults.call({ answers: [5, 2, 3] });
+// poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
 
 // [5, 2, 3]
 // § Data 2: [1, 5, 3, 9, 6, 1]
 
 // poll.displayResults('is Immutable');
 // poll.displayResults(['Array', '1', 2]);
+
+// IEFE (Immediatly Executed Function Expression)
+// (function () {
+//   console.log('Hello IEFE');
+//   const secure = 3; //Cant'access this variable outside
+//   var secureVar = 4;
+//   let secureLet1 = 8;
+// })();
+
+// (function () {
+//   console.log('Hello IEFE, Number 2');
+//   const secure = 3; //Cant'access this variable outside
+//   var secureVar = 4;
+//   let secureLet1 = 8;
+// })();
+
+//Block scope (Only using const and let)
+// {
+//   const secureConst = 5;
+//   let secureLet2 = 6;
+//   var secureNotVar = 7;
+// }
+// console.log(secureNotVar); //O/P 7
+// console.log(secureNot); //Not defined Error
+// console.log(secure); //Not defined Error
+// console.log(secureConst); //Not defined Error
+// console.log(secureLet1); //Not defined Error
+// console.log(secureLet2); //Not defined Error
+
+//Closures
+const closureEg = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} Passengers.`);
+  };
+};
+
+const closureFun = closureEg();
+closureFun();
+closureFun();
+closureFun();
+
+function outer() {
+  let b = 50;
+
+  function inner() {
+    let a = 100;
+    console.log(`a is ${a} and b is ${b}`);
+    a++; // assigned evertime to 100 for every call
+    b++; //Comming from closure, Iterated and saved on closure
+  }
+  return inner;
+}
+
+// first invocation of outer
+const fnFirst = outer(); // second invocation of outer
+const fnSecond = outer(); // what's inside?
+// note console.dir() and not console.log() command
+
+fnFirst(); // a is 100 and b is 50
+fnFirst(); // a is 100 and b is 51
+fnFirst(); // a is 100 and b is 52
+fnSecond(); // a is 100 and b is 50
+console.dir(fnFirst);
+console.dir(fnFirst);
+console.dir(fnSecond);
