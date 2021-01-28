@@ -321,3 +321,53 @@ fnSecond(); // a is 100 and b is 50
 console.dir(fnFirst);
 console.dir(fnFirst);
 console.dir(fnSecond);
+
+//More closure examples
+
+//Ex 1
+
+let f;
+const global = 60;
+
+const g = function () {
+  const a = 20;
+
+  f = function () {
+    console.log(`Printing "a" and Global value: ${a} and ${global}`);
+  };
+};
+
+const h = function () {
+  const b = 50;
+
+  f = function () {
+    console.log(`Printing "b" and Global value: ${b} and ${global}`);
+  };
+};
+
+g();
+f();
+console.dir(f);
+
+//Re-assigning f function
+
+h();
+f();
+console.dir(f);
+
+//Using timer to see closures
+
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  //Callback function
+  setTimeout(function () {
+    console.log(`We are boarding ${n} passengers all atonce`);
+    console.log(`There are 3 groups ${perGroup} passengers each`);
+  }, wait * 1000);
+};
+
+//Closure has priority over the scope chain
+const perGroup = 200;
+
+boardPassengers(180, 2);
