@@ -61,16 +61,151 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  // console.log(containerMovements.innerHTML);
+
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__value">${Math.abs(mov)}</div>
+      </div>`;
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayMovements(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+//Slice and Splice methods
+
+// let arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+// // console.log(arr);
+// console.log('Slice');
+
+// //SLICE method - Dose not mutate the original array instead it returns a new array
+// //Inddex value is included
+// console.log(arr.slice(1));
+// // console.log(arr[0]);
+// // console.log(arr.slice());
+// console.log(arr.slice(-1));
+
+// //End value is not included
+// console.log(arr.slice(1, 4));
+// console.log(arr.slice(1, -4));
+
+// //SPLICE method - Alters or Mutates the original array
+// console.log('Splice');
+// console.log(arr.splice(1));
+// console.log(arr);
+
+// //End value is not included
+// console.log(arr.splice(1, 4));
+// console.log(arr.splice(1, -4));
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// console.log('--- for of ---');
+// //For of loop
+// for (const [i, movement] of movements.entries()) {
+//   movement > 0
+//   ? console.log(`Transaction ${i + 1}: ${movement} Rs. Deposited`)
+//   : console.log(`Transaction ${i + 1}: ${Math.abs(movement)} Rs. Withdrewed`);
+// }
+
+// console.log('--- forEach ---');
+// //forEach loop
+// movements.forEach(function (
+//   movement,
+//   i,
+//   array
+//   ) /* We should not change the order of the passing parameters*/ {
+//     movement > 0
+//     ? console.log(`Transaction ${i + 1}: ${movement} Rs. Deposited`)
+//     : console.log(`Transaction ${i + 1}: ${Math.abs(movement)} Rs. Withdrewed`);
+//     // console.log(array);
+//   });
+
+//   //MAP
+//   console.log('--- MAP ---');
+//   const currencies = new Map([
+//     ['USD', 'United States dollar'],
+//     ['EUR', 'Euro'],
+//     ['GBP', 'Pound sterling'],
+//   ]);
+
+//   currencies.forEach(function (
+//     value,
+//     key,
+//     wholeMap
+//     ) /* We should not change the order of the passing parameters*/ {
+//       console.log(`${key}: ${value}, ${wholeMap}`);
+//     });
+
+//     //SET
+//     console.log('--- SET ---');
+//     const currenciesSet = new Set(['USD', 'INR', 'INR', 'USD', 'EUR', 'GBP']);
+//     console.log(currenciesSet);
+//     currenciesSet.forEach(function (
+//       value,
+//       key,
+//       wholeSet
+//       ) /* We should not change the order of the passing parameters*/ {
+//         console.log(`${key}: ${value}, ${[...wholeSet]}`);
+//       });
+
+//MAP, FILTER, REDUCE
+
+const movements1 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//map uses a callBack function
+// const eurToUsd = 1.1;
+
+// // const movementsEu = movements1.map(function (mov) {
+// //   return mov * eurToUsd;
+// // });
+
+// //using Arrow function
+// const movementsEu = movements1.map(mov => mov * eurToUsd);
+
+// console.log(movements1);
+// console.log(movementsEu);
+
+// //Using for of loop
+// const movementsEu1 = [];
+// for (const mov of movements1) {
+//   movementsEu1.push(mov * eurToUsd);
+// }
+// console.log(movementsEu1);
+
+// const transactionsDescription = movements1.map(function (mov, i) {
+//   return `Transaction ${
+//     i + 1
+//   }: Rs.${Math.abs(mov)} ${mov > 0 ? 'Withdrew' : 'Deposited'}`;
+// });
+
+//Using Arrowfunction
+const transactionsDescription = movements1.map(
+  (mov, i) =>
+    `Transaction ${i + 1}: Rs.${Math.abs(mov)} ${
+      mov > 0 ? 'Withdrew' : 'Deposited'
+    }`
+);
+
+console.log(transactionsDescription);
