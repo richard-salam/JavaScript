@@ -204,7 +204,7 @@ const movements1 = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const transactionsDescription = movements1.map(
   (mov, i) =>
     `Transaction ${i + 1}: Rs.${Math.abs(mov)} ${
-      mov > 0 ? 'Withdrew' : 'Deposited'
+      mov > 0 ? 'Deposited' : 'Withdrew'
     }`
 );
 
