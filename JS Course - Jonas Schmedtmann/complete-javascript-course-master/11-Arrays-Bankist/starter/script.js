@@ -79,6 +79,20 @@ const displayMovements = function (movements) {
   });
 };
 displayMovements(account1.movements);
+
+// Creating a function which creates a new property username in each account i.e initials of the name
+const createUserName = function (acnts) {
+  for (const acnt of acnts) {
+    acnt.username = acnt.owner
+      .toLowerCase()
+      .split(' ')
+      .map(val => val[0])
+      .join('');
+  }
+};
+
+createUserName(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -174,6 +188,33 @@ displayMovements(account1.movements);
 
 const movements1 = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+// FILTER
+//Same using function expression
+// const deposits = movements1.filter(function (mov) {
+//   return mov > 0;
+// });
+
+const deposits = movements1.filter(mov => mov > 0);
+console.log(deposits);
+
+const withdrawals = movements1.filter(mov => mov < 0);
+console.log(withdrawals);
+
+//REDUCE
+const balance = movements1.reduce(function (acc, crnt, i, arr) {
+  console.log(`Acc at Iteration ${i}: ${acc}`);
+  return acc + crnt; //The assignment to acc happens by default (i.e) acc = acc + crnt is now just acc + crnt
+}, 0);
+console.log(balance);
+
+//Tofind the max value
+const max = movements1.reduce((acc, crnt, i, arr) => {
+  console.log(`Acc and Crnt at Iteration ${i}: ${acc}, ${crnt}`);
+  if (acc > crnt) return acc;
+  else return crnt;
+}, movements1[0]);
+
+console.log(max);
 //map uses a callBack function
 // const eurToUsd = 1.1;
 
