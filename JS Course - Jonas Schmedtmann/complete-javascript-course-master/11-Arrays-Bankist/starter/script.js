@@ -61,6 +61,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
   // console.log(containerMovements.innerHTML);
@@ -93,6 +95,18 @@ const createUserName = function (acnts) {
 
 createUserName(accounts);
 
+const calDisplaySummary = function () {
+  const deposit = movements
+    .filter(value => value > 0)
+    .reduce((acc, value) => acc + value, 0);
+  labelSumIn.textContent = `${deposit}€`;
+  const withdrawl = movements
+    .filter(value => value < 0)
+    .reduce((acc, value) => acc + Math.abs(value), 0);
+  labelSumOut.textContent = `${withdrawl}€`;
+};
+
+calDisplaySummary();
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -198,23 +212,23 @@ const deposits = movements1.filter(mov => mov > 0);
 console.log(deposits);
 
 const withdrawals = movements1.filter(mov => mov < 0);
-console.log(withdrawals);
+// console.log(withdrawals);
 
 //REDUCE
 const balance = movements1.reduce(function (acc, crnt, i, arr) {
-  console.log(`Acc at Iteration ${i}: ${acc}`);
+  // console.log(`Acc at Iteration ${i}: ${acc}`);
   return acc + crnt; //The assignment to acc happens by default (i.e) acc = acc + crnt is now just acc + crnt
 }, 0);
-console.log(balance);
+// console.log(balance);
 
 //Tofind the max value
-const max = movements1.reduce((acc, crnt, i, arr) => {
-  console.log(`Acc and Crnt at Iteration ${i}: ${acc}, ${crnt}`);
-  if (acc > crnt) return acc;
-  else return crnt;
-}, movements1[0]);
+// const max = movements1.reduce((acc, crnt, i, arr) => {
+//   // console.log(`Acc and Crnt at Iteration ${i}: ${acc}, ${crnt}`);
+//   if (acc > crnt) return acc;
+//   else return crnt;
+// }, movements1[0]);
 
-console.log(max);
+// console.log(max);
 //map uses a callBack function
 // const eurToUsd = 1.1;
 
@@ -242,11 +256,11 @@ console.log(max);
 // });
 
 //Using Arrowfunction
-const transactionsDescription = movements1.map(
-  (mov, i) =>
-    `Transaction ${i + 1}: Rs.${Math.abs(mov)} ${
-      mov > 0 ? 'Deposited' : 'Withdrew'
-    }`
-);
+// const transactionsDescription = movements1.map(
+//   (mov, i) =>
+//     `Transaction ${i + 1}: Rs.${Math.abs(mov)} ${
+//       mov > 0 ? 'Deposited' : 'Withdrew'
+//     }`
+// );
 
-console.log(transactionsDescription);
+// console.log(transactionsDescription);
