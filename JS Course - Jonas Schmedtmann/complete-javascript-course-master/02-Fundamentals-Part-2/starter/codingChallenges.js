@@ -922,3 +922,4 @@ const dogHumanAge = calcAverageHumanAgeFun([5, 2, 4, 1, 15, 8, 3]);
 const dogHumanAge2 = calcAverageHumanAgeFun([16, 6, 10, 5, 6, 1, 4]);
 console.log(dogHumanAge);
 console.log(dogHumanAge2);
+

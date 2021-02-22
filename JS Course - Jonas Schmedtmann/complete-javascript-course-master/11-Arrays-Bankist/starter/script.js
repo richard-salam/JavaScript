@@ -104,7 +104,17 @@ const calDisplaySummary = function () {
     .filter(value => value < 0)
     .reduce((acc, value) => acc + Math.abs(value), 0);
   labelSumOut.textContent = `${withdrawl}€`;
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposits => (deposits * 1.2) / 100)
+    .reduce((acc, interest) => acc + interest, 0);
+  console.log(interest);
+  labelSumInterest.textContent = `${interest}€`;
 };
+
+const interest = 100;
+
+console.log((interest * 1.5) / 100);
 
 calDisplaySummary();
 /////////////////////////////////////////////////
